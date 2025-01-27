@@ -13,11 +13,12 @@
     h1 {
       text-align: center;
       color: #ff4081;
+      font-size: 5vw; /* Dynamische Schriftgröße */
     }
     .game-container {
       position: relative;
-      width: 80vw;
-      height: 60vh;
+      width: 100%; /* Passt sich an die Bildschirmbreite an */
+      height: 75vh; /* Nutzt 75% der Bildschirmhöhe */
       margin: 0 auto;
       border: 3px solid #ff4081;
       border-radius: 12px;
@@ -26,8 +27,10 @@
     }
     .cat {
       position: absolute;
-      width: 80px;
-      height: 80px;
+      width: 15vw; /* Dynamische Größe für kleine Bildschirme */
+      height: 15vw; /* Dynamische Größe für kleine Bildschirme */
+      max-width: 80px; /* Begrenzung für größere Geräte */
+      max-height: 80px; /* Begrenzung für größere Geräte */
       background-image: url('cat.jpeg');
       background-size: cover;
       cursor: pointer;
@@ -36,7 +39,7 @@
       position: absolute;
       top: 10px;
       left: 10px;
-      font-size: 24px;
+      font-size: 4vw; /* Dynamische Schriftgröße */
       color: #ff4081;
     }
   </style>
