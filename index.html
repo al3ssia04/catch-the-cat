@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catch the Cat!</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #fce4ec;
+    }
+    h1 {
+      text-align: center;
+      color: #ff4081;
+      font-size: 5vw; /* Dynamische Schriftgröße */
+    }
+    .game-container {
+      position: relative;
+      width: 100%; /* Passt sich an die Bildschirmbreite an */
+      height: 75vh; /* Nutzt 75% der Bildschirmhöhe */
+      margin: 0 auto;
+      border: 3px solid #ff4081;
+      border-radius: 12px;
+      overflow: hidden;
+      background-color: #fff;
+    }
+    .cat {
+      position: absolute;
+      width: 15vw; /* Dynamische Größe für kleine Bildschirme */
+      height: 15vw; /* Dynamische Größe für kleine Bildschirme */
+      max-width: 80px; /* Begrenzung für größere Geräte */
+      max-height: 80px; /* Begrenzung für größere Geräte */
+      background-image: url('cat.jpeg');
+      background-size: cover;
+      cursor: pointer;
+    }
+    .score {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      font-size: 4vw; /* Dynamische Schriftgröße */
+      color: #ff4081;
+    }
+  </style>
+</head>
+<body>
+  <h1>Catch the Cat!</h1>
+  <div class="game-container" id="game-container">
+    <div class="score" id="score">Score: 0</div>
+    <div class="cat" id="cat"></div>
+  </div>
+
+  <!-- Add the canvas-confetti library -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script>
+    const cat = document.getElementById('cat');
+    const scoreDisplay = document.getElementById('score');
+    const gameContainer = document.getElementById('game-container');
+
+    let score = 0;
+
+    // Move the cat to a random position inside the game container
+    function moveCat() {
+      const containerWidth = gameContainer.clientWidth;
+      const containerHeight = gameContainer.clientHeight;
+      const catWidth = cat.offsetWidth;
+      const catHeight = cat.offsetHeight;
+
+      // Calculate random position ensuring the cat stays fully visible
+      const randomX = Math.random() * (containerWidth - catWidth);
+      const randomY = Math.random() * (containerHeight - catHeight);
+
+      cat.style.left = randomX + 'px';
+      cat.style.top = randomY + 'px';
+    }
+
+    // Trigger confetti when score reaches 10
+    function triggerConfetti() {
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { x: 0.5, y: 0.5 }
+      });
+    }
+
+    // Increase score when the cat is clicked
+    cat.addEventListener('click', () => {
+      score++;
+      scoreDisplay.textContent = `Score: ${score}`;
+      moveCat();
+
+      if (score === 10) {
+        triggerConfetti();
+        alert('Congratulations! You reached a score of 10!');
+      }
+    });
+
+    // Move the cat every 1.5 seconds
+    setInterval(moveCat, 1500);
+
+    // Initialize cat position
+    moveCat();
+  </script>
+</body>
+</html>
